@@ -35,6 +35,7 @@ module.exports = {
     'no-console': 0,
     'require-jsdoc': 0,
     'prettier/prettier': 'error',
+    'react/react-in-jsx-scope':0,
   },
   'settings': {
     'react': {
