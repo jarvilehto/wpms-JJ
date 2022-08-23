@@ -19,7 +19,7 @@ function ListItem({singleMedia}) {
       >
         <Image
           style={{flex: 1, margin: 10}}
-          source={{uri: singleMedia.thumbnails.w160}}
+          source={{uri: `https://media.mw.metropolia.fi/wbma/uploads/${singleMedia.thumbnails.w160}`}}
         />
 
         <View

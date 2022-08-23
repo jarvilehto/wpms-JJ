@@ -12,8 +12,7 @@ import {StatusBar} from 'expo-status-bar';
 import ListItem from './ListItem';
 import {check} from 'prettier';
 
-const url =
-  'https://raw.githubusercontent.com/mattpe/wbma/master/docs/assets/test.json';
+const url = 'https://media.mw.metropolia.fi/wbma/';
 
 const List = () => {
   const [mediaArray, setMediaArray] = useState({});
@@ -45,11 +44,20 @@ const List = () => {
 
   useEffect(() => {
     const loadMedia = async () => {
-      const response = await fetch(url);
+      const response = await fetch(url + 'media');
       const json = await response.json();
-      setMediaArray(json);
-      console.log(json);
+      Promise.all(
+        json.map(async (res) => {
+          const response = await fetch(url + `media/${res.file_id}`);
+          const qJson = await response.json();
+          return qJson;
+        })
+      ).then((values) => {
+        console.log(values);
+        setMediaArray(values);
+      });
     };
+
     loadMedia().catch(console.error);
   }, []);
 
