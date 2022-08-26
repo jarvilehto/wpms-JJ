@@ -71,7 +71,6 @@ const navigation = StyleSheet.create({
   panel: {
     height: 65,
     backgroundColor: '#ba78f0',
-    marginTop: 20,
     marginBottom: 20,
     display:'flex',
     justifyContent:'space-around',
