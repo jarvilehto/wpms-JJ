@@ -12,7 +12,6 @@ const List = () => {
       <View style={[styles.container]}>
         <FlatList
           data={mediaArray}
-          style={styles.bgColor}
           renderItem={({item}) => <ListItem singleMedia={item} />}
         />
       </View>
@@ -31,9 +30,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.34,
     shadowRadius: 6.27,
     elevation: 10,
-  },
-  bgColor: {
-    //backgroundColor: '#a2a2fdff',
   },
 });
 

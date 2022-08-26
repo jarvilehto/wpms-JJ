@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   post: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#c977ff',
-    marginBottom: 20,
+    backgroundColor: '#001D3D',
+    marginBottom: 5,
     margin: 'auto',
     maxHeight: 170,
     margin: 10,
@@ -65,12 +65,12 @@ const styles = StyleSheet.create({
   postTitle: {
     fontSize: 26,
     fontWeight: '700',
-    color: 'white',
+    color: '#FFC300',
     marginBottom: 5,
   },
   postText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
   },
   heartIcon: {
     bottom: 40,

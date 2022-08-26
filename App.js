@@ -18,30 +18,29 @@ const App = () => {
       <SafeAreaView style={[styles.container, styles.bgColor]}>
         <View style={[styles.container, styles.bgColor]}>
           <View style={[navigation.panel, styles.shadows]}>
+            <Menu
+              stroke="#ffff"
+              width={28}
+              height={28}
+              strokeWidth={2.5}
+              style={styles.shadows}
+            />
 
-          <Menu
-            stroke="#ffff"
-            width={28}
-            height={28}
-            strokeWidth={3}
-            style={styles.shadows}
-          />
+            <Aperture
+              stroke="#ffff"
+              width={28}
+              height={28}
+              strokeWidth={2.5}
+              style={styles.shadows}
+            />
 
-          <Aperture
-            stroke="#ffff"
-            width={28}
-            height={28}
-            strokeWidth={3}
-            style={styles.shadows}
-          />
-
-           <Edit
-            stroke="#ffff"
-            width={28}
-            height={28}
-            strokeWidth={3}
-            style={styles.shadows}
-          />
+            <Edit
+              stroke="#ffff"
+              width={28}
+              height={28}
+              strokeWidth={2.5}
+              style={styles.shadows}
+            />
           </View>
           <View style={[styles.bgColor, header.panel, styles.shadows]}>
             <ImageBackground
@@ -70,12 +69,12 @@ const App = () => {
 const navigation = StyleSheet.create({
   panel: {
     height: 65,
-    backgroundColor: '#ba78f0',
-    marginBottom: 20,
-    display:'flex',
-    justifyContent:'space-around',
-    flexDirection:'row',
-    alignItems:'center',
+    backgroundColor: '#000814',
+    marginBottom: 5,
+    display: 'flex',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 
@@ -85,9 +84,9 @@ const header = StyleSheet.create({
     margin: 15,
     marginLeft: 5,
     marginRight: 5,
-    marginBottom: 20,
+    marginBottom: 5,
     minHeight: 180,
-    backgroundColor: '#c977ff',
+    backgroundColor: '#001D3D',
     borderRadius: 20,
   },
   bgImage: {
@@ -100,7 +99,7 @@ const header = StyleSheet.create({
     borderBottomLeftRadius: 400,
   },
   txtContainer: {
-    backgroundColor: '#e1b7fa',
+    backgroundColor: '#FFC300',
     position: 'absolute',
     width: '40%',
     bottom: 15,
@@ -119,7 +118,7 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   bgColor: {
-    backgroundColor: '#f6e8ff',
+    backgroundColor: '#e8ecff',
   },
   userPosts: {
     flex: 1,
