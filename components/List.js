@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
-import {StatusBar} from 'expo-status-bar';
+import {FlatList, StyleSheet, View, Text} from 'react-native';
 import ListItem from './ListItem';
 import ApiHooks, {useMedia} from '../hooks/ApiHooks';
 
@@ -10,10 +9,13 @@ const List = () => {
   const {mediaArray} = useMedia();
   return (
     <>
-      <FlatList
-        data={mediaArray}
-        renderItem={({item}) => <ListItem singleMedia={item} />}
-      />
+      <View style={[styles.container]}>
+        <FlatList
+          data={mediaArray}
+          style={styles.bgColor}
+          renderItem={({item}) => <ListItem singleMedia={item} />}
+        />
+      </View>
     </>
   );
 };
@@ -21,11 +23,17 @@ const List = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'space-evenly',
-    flexDirection: 'row',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
+  },
+  bgColor: {
+    //backgroundColor: '#a2a2fdff',
   },
 });
 
