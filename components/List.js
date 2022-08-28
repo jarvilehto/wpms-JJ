@@ -12,7 +12,7 @@ const List = ({navigation}) => {
         data={mediaArray}
         renderItem={
           ({item}) => <ListItem
-            navigation={navigation}
+            navigation={navigation.navigation}
             singleMedia={item}
           />
         }
@@ -20,7 +20,5 @@ const List = ({navigation}) => {
     </>
   );
 };
-
-
 
 export default List;

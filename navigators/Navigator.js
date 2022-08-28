@@ -6,17 +6,13 @@ import Profile from '../views/Profile';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Single from '../views/Single';
 
-const HomeScreen = () => {
-  return <Home></Home>;
+const HomeScreen = (props) => {
+  return <Home navigate={props}></Home>;
 };
 
 const ProfileScreen = () => {
   return <Profile></Profile>;
 };
-
-const SingleScreen = () => {
-  return <Single></Single>
-}
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -34,7 +30,7 @@ const StackScreen = () => {
     return(
         <Stack.Navigator>
             <Stack.Screen  name="Tabs" component={TabScreen} options='hide header'/>
-            <Stack.Screen  name="Single" component={SingleScreen}/>
+            <Stack.Screen  name="Single" component={Single}/>
         </Stack.Navigator>
     );
 };

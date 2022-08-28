@@ -2,15 +2,25 @@ import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {Image} from 'react-native';
 import PropTypes from 'prop-types';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
-const ListItem = ({singleMedia}) => {
-  const navigation = useNavigation(); 
+
+const ListItem = ({singleMedia,navigation}) => {
+  //const navigation = useNavigation();
   return (
     <>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('Single');
+          navigation.navigate('Single',
+          {
+            filename: singleMedia.thumbnails.w160,
+            title: singleMedia.title,
+          });
+          /* Used with useNavigation Hook
+          navigation.navigate('Single', {
+            filename: singleMedia.thumbnails.w160,
+            title: singleMedia.title,
+          });*/
         }}
         style={{
           flex: 1,
@@ -22,6 +32,7 @@ const ListItem = ({singleMedia}) => {
           height: 250,
         }}
       >
+        
         <Image
           style={{flex: 1, margin: 10}}
           source={{
@@ -41,10 +52,11 @@ const ListItem = ({singleMedia}) => {
           </Text>
           <Text>{singleMedia.description}</Text>
         </View>
+        
       </TouchableOpacity>
     </>
   );
-}
+};
 
 ListItem.propTypes = {
   singleMedia: PropTypes.object,

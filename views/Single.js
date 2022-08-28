@@ -1,10 +1,20 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView, Text} from 'react-native';
+import {StyleSheet, SafeAreaView, Text, View, Image} from 'react-native';
 
-const Single = () => {
+const Single = ({route}) => {
+  const {filename, title} = route.params;
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Single</Text>
+      <Image
+        source={{
+          uri: `https://media.mw.metropolia.fi/wbma/uploads/${filename}`,
+        }}
+        style={{
+          width: 200,
+          height: 200,
+        }}
+      />
+      <Text>{title}</Text>
     </SafeAreaView>
   );
 };
