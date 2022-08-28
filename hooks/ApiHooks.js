@@ -16,7 +16,6 @@ const useMedia = () => {
           return qJson;
         })
       ).then((values) => {
-        console.log(values);
         setMediaArray(values);
       });
     };
@@ -27,4 +26,8 @@ const useMedia = () => {
   return {mediaArray};
 };
 
-export {useMedia};
+const useUser = () => {
+  // TODO: later
+};
+
+export {useMedia, useUser};

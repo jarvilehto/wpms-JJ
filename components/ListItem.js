@@ -2,11 +2,16 @@ import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {Image} from 'react-native';
 import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
-function ListItem({singleMedia}) {
+const ListItem = ({singleMedia}) => {
+  const navigation = useNavigation(); 
   return (
     <>
       <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Single');
+        }}
         style={{
           flex: 1,
           flexDirection: 'row',
@@ -43,6 +48,7 @@ function ListItem({singleMedia}) {
 
 ListItem.propTypes = {
   singleMedia: PropTypes.object,
+  navigate: PropTypes.object,
 };
 
 export default ListItem;

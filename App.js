@@ -1,6 +1,6 @@
 import React from 'react';
 import {StatusBar} from 'expo-status-bar';
-import Navigator from './navigators/Navigators'
+import Navigator from './navigators/Navigator'
 
 const App = () => {
   return (

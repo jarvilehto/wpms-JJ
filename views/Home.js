@@ -1,18 +1,17 @@
 import  React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import {StatusBar} from 'expo-status-bar';
-//import List from './components/List';
 import List from '../components/List'
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <List />
+      <List navigation={navigation}></List>
       </SafeAreaView>
     </>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -24,5 +23,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
+
 
 export default Home;
