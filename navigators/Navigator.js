@@ -5,6 +5,7 @@ import Home from '../views/Home';
 import Profile from '../views/Profile';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Single from '../views/Single';
+import Login from '../views/Login';
 
 const HomeScreen = (props) => {
   return <Home navigate={props}></Home>;
@@ -27,12 +28,22 @@ const TabScreen = () => {
 }
 
 const StackScreen = () => {
+  const isLoggedIn = true;
+  if(isLoggedIn){
     return(
         <Stack.Navigator>
             <Stack.Screen  name="Tabs" component={TabScreen} options='hide header'/>
             <Stack.Screen  name="Single" component={Single}/>
         </Stack.Navigator>
     );
+  }
+  else{
+    return(
+      <Stack.Navigator>
+            <Stack.Screen  name="Login" component={Login} />
+        </Stack.Navigator>
+    );
+  }
 };
 
 const Navigator = () => {
