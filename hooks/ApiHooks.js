@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 // TODO: add necessary imports
-const url = 'http://media.mw.metropolia.fi/wbma/';
+const url = 'https://media.mw.metropolia.fi/wbma/';
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState({});
 
@@ -26,32 +26,29 @@ const useMedia = () => {
   return {mediaArray};
 };
 
-/* Used for troubleshooting
-const useMedia = () => {
-  const [mediaArray, setMediaArray] = useState([]);
-  const loadMedia = async () => {
+const useLogin = () => {
+  const postLogin = async (userCredentials) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userCredentials),
+    };
     try {
-      const response = await fetch(url + 'media?limit=5');
+      console.log(options.body);
+      const response = await fetch(url + 'login', options);
       const json = await response.json();
-      const allMediaData = json.map(async (mediaItem) => {
-        const response = await fetch(url + 'media/' + mediaItem.file_id);
-        return await response.json();
-      });
-      setMediaArray(await Promise.all(allMediaData));
+      return json;
     } catch (error) {
-      console.log('media fetch failed', error);
-      // TODO: notify user?
+      throw new Error(error.message);
     }
   };
-  useEffect(() => {
-    loadMedia();
-  }, []);
-  return {mediaArray};
+  return {postLogin};
 };
-*/
 
 const useUser = () => {
   // TODO: later
 };
 
-export {useMedia, useUser};
+export {useMedia, useUser, useLogin};

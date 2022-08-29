@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, Button} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../context/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useLogin} from '../hooks/ApiHooks';
 
 const Login = () => {
   // props is needed for navigation
@@ -22,8 +23,10 @@ const Login = () => {
 
   const logIn = async () => {
     console.log('logging in');
-    setIsLoggedIn(true);
-    await AsyncStorage.setItem('userToken', 'abc');
+    const data = {password: 'Ankkalinna2', username: 'juho'};
+    const logData = useLogin().postLogin(data)
+    console.log('token', logData)
+    setIsLoggedIn(true)
   };
 
   return (
