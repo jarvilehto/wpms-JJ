@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, Button} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../context/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useLogin} from '../hooks/ApiHooks';
+import {useLogin, useUser} from '../hooks/ApiHooks';
 
 const Login = () => {
   // props is needed for navigation
@@ -13,9 +13,15 @@ const Login = () => {
   const checkToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
     console.log('token', userToken);
-    if (userToken === 'abc') {
+    const auth = await useUser().getUserByToken(userToken);
+    console.log('auth', auth);
+    if (auth) {
       setIsLoggedIn(true);
     }
+    /*
+    if (userToken === 'abc') {
+      setIsLoggedIn(true);
+    }*/
   };
   useEffect(() => {
     checkToken();
@@ -24,9 +30,9 @@ const Login = () => {
   const logIn = async () => {
     console.log('logging in');
     const data = {password: 'Ankkalinna2', username: 'juho'};
-    const logData = useLogin().postLogin(data)
-    console.log('token', logData)
-    setIsLoggedIn(true)
+    const logData = await useLogin().postLogin(data);
+    await AsyncStorage.setItem('userToken', logData);
+    setIsLoggedIn(true);
   };
 
   return (

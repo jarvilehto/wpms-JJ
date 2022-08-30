@@ -36,10 +36,9 @@ const useLogin = () => {
       body: JSON.stringify(userCredentials),
     };
     try {
-      console.log(options.body);
       const response = await fetch(url + 'login', options);
       const json = await response.json();
-      return json;
+      return json.token;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -48,7 +47,25 @@ const useLogin = () => {
 };
 
 const useUser = () => {
-  // TODO: later
+  const getUserByToken = async (token) => {
+    try {
+      const options = {
+        method: 'GET',
+        headers: {'x-access-token': token},
+      };
+      const response = await fetch(url + 'users/user', options);
+      const userData = response.json();
+      if (response.ok) {
+        return response.ok;
+      } else {
+        throw new Error(userData.message);
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
+  return {getUserByToken};
 };
 
 export {useMedia, useUser, useLogin};
