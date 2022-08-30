@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../context/MainContext';
 
 const RegisterForm = () => {
-  const [isLoggedIn, setIsLoggedIn] = useContext(MainContext);
+  const {isLoggedIn, setIsLoggedIn} = useContext(MainContext);
   const {
     control,
     handleSubmit,

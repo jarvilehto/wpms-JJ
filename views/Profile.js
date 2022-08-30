@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // not using props for navigation. Hooks are better. Period.
 const Profile = () => {
-  const [isLoggedIn, setIsLoggedIn] = useContext(MainContext);
+  const {setUser, isLoggedIn, user, setIsLoggedIn} = useContext(MainContext);
   console.log('Profile', isLoggedIn);
   const logout = async () => {
     setIsLoggedIn(false);
@@ -14,6 +14,9 @@ const Profile = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text>Profile</Text>
+      <Text>Username: {user.username}</Text>
+      <Text>Email: {user.email}</Text>
+      <Text>userID: {user.user_id}</Text>
       <Button title={'Logout'} onPress={logout} />
     </SafeAreaView>
   );

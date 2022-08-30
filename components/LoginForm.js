@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../context/MainContext';
 
 const LoginForm = () => {
-  const [isLoggedIn, setIsLoggedIn] = useContext(MainContext);
+  const {setUser, isLoggedIn, user, setIsLoggedIn} = useContext(MainContext);
   const {
     control,
     handleSubmit,
@@ -21,8 +21,9 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     console.log('logging in', data);
     const logData = await useLogin().postLogin(data);
-    console.log('logData', logData);
-    await AsyncStorage.setItem('userToken', logData);
+    console.log('logData', logData.token);
+    setUser(logData);
+    await AsyncStorage.setItem('userToken', logData.token);
     setIsLoggedIn(true);
   };
 

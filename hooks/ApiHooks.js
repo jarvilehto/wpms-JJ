@@ -38,7 +38,7 @@ const useLogin = () => {
     try {
       const response = await fetch(url + 'login', options);
       const json = await response.json();
-      return json.token;
+      return json;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -56,7 +56,7 @@ const useUser = () => {
       const response = await fetch(url + 'users/user', options);
       const userData = response.json();
       if (response.ok) {
-        return response.ok;
+        return userData;
       } else {
         throw new Error(userData.message);
       }
