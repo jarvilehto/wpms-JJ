@@ -21,13 +21,12 @@ const Stack = createNativeStackNavigator();
 
 const TabScreen = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
-        options={{headerShown: false}}
       />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen}  />
     </Tab.Navigator>
   );
 };
@@ -37,14 +36,14 @@ const StackScreen = () => {
   if (isLoggedIn) {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Tabs" component={TabScreen} options="hide header" />
+        <Stack.Screen name="Tabs" component={TabScreen} options={{headerShown:false}}  />
         <Stack.Screen name="Single" component={Single} />
       </Stack.Navigator>
     );
   } else {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Login" component={Login} options={{headerShown:false}} />
       </Stack.Navigator>
     );
   }
