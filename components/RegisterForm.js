@@ -1,9 +1,14 @@
 import React, {useContext} from 'react';
-import {Text, View, TextInput, Button, Alert, StyleSheet} from 'react-native';
+import { View,  Alert, StyleSheet} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {useUser} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../context/MainContext';
+import {
+  Button,
+  Input,
+  Text,
+} from '@rneui/base';
 
 const RegisterForm = () => {
   const {isLoggedIn, setIsLoggedIn} = useContext(MainContext);
@@ -28,18 +33,19 @@ const RegisterForm = () => {
 
   return (
     <View>
-      <View style={{marginBottom: 20, marginTop: 20, width: 100, display:'flex', alignItems:'center'}}>
+      <View style={{display: 'flex'}}>
+      <Text style={{fontSize: 20, alignSelf: 'center', fontWeight:'600'}}>Register</Text>
         <Controller
           control={control}
           rules={{
             required: true,
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
+            <Input
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              style={styles.input}
+              
               placeholder='Username'
             />
           )}
@@ -54,11 +60,11 @@ const RegisterForm = () => {
           maxLength: 20,
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
-            style={styles.input}
+            
             placeholder='Password'
             autoCapitalize='none'
           />
@@ -74,11 +80,10 @@ const RegisterForm = () => {
             required: true,
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
+            <Input
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              style={styles.input}
               placeholder='email'
               keyboardType='email-address'
               textContentType='emailAddress'
@@ -93,11 +98,10 @@ const RegisterForm = () => {
             required: true,
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
+            <Input
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              style={styles.input}
               placeholder='Full name'
             />
           )}
@@ -108,7 +112,7 @@ const RegisterForm = () => {
     </View>
   );
 };
-
+/*
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -125,5 +129,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+*/
 
 export default RegisterForm;

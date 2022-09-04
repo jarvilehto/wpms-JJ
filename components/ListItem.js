@@ -2,59 +2,45 @@ import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {Image} from 'react-native';
 import PropTypes from 'prop-types';
-import {useNavigation} from '@react-navigation/native';
+import {Avatar, Divider, Button} from '@rneui/base';
 
-
-const ListItem = ({singleMedia,navigation}) => {
-  //const navigation = useNavigation();
+const ListItem = ({singleMedia, navigation}) => {
   return (
-    <>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Single',
-          {
-            filename: singleMedia.thumbnails.w160,
-            title: singleMedia.title,
-          });
-          /* Used with useNavigation Hook
-          navigation.navigate('Single', {
-            filename: singleMedia.thumbnails.w160,
-            title: singleMedia.title,
-          });*/
-        }}
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          backgroundColor: '#cccccc',
-          marginBottom: 10,
-          marginTop: 0,
-          margin: 'auto',
-          height: 250,
-        }}
-      >
-        
-        <Image
-          style={{flex: 1, margin: 10}}
-          source={{
-            uri: `https://media.mw.metropolia.fi/wbma/uploads/${singleMedia.thumbnails.w160}`,
-          }}
-        />
-
-        <View
-          style={{
-            flex: 1,
-            height: 200,
-            padding: 10,
-          }}
-        >
+    <View style={{overflow: 'hidden', maxHeight: 150, overflow: 'hidden'}}>
+      <View style={{margin: 10, display: 'flex', flexDirection: 'row'}}>
+        <View style={{marginRight: 5}}>
+          <Avatar
+            size={100}
+            source={{
+              uri: `https://media.mw.metropolia.fi/wbma/uploads/${singleMedia.thumbnails.w160}`,
+            }}
+          />
+        </View>
+        <View style={{flex: 2, overflow: 'hidden', maxHeight: 100}}>
           <Text style={{fontSize: 20, fontWeight: '500'}}>
             {singleMedia.title}
           </Text>
           <Text>{singleMedia.description}</Text>
         </View>
-        
-      </TouchableOpacity>
-    </>
+        <View style={{justifyContent: 'center'}}>
+          <Button
+            title={'View'}
+            buttonStyle={{
+              borderRadius: 8,
+              width: 80,
+            }}
+            onPress={() => {
+              navigation.navigate('Single', {
+                filename: singleMedia.thumbnails.w160,
+                title: singleMedia.title,
+                description: singleMedia.description,
+              });
+            }}
+          />
+        </View>
+      </View>
+      <Divider />
+    </View>
   );
 };
 

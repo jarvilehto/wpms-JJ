@@ -22,30 +22,17 @@ const Login = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.box}>
-        <Text>Login</Text>
+    <View >
+      <View >
         <LoginForm />
       </View>
-      <View style={styles.box}>
-        <Text>Register</Text>
+      <View >
         <RegisterForm />
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    margin: 20,
-  },
-});
 
 Login.propTypes = {
   navigation: PropTypes.object,
