@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Text, View, TextInput, Button, Alert, StyleSheet} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
-import {useLogin} from '../hooks/ApiHooks';
+import {useLogin, userTags} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../context/MainContext';
 
@@ -22,8 +22,8 @@ const LoginForm = () => {
     console.log('logging in', data);
     const logData = await useLogin().postLogin(data);
     console.log('logData', logData.token);
-    setUser(logData);
     await AsyncStorage.setItem('userToken', logData.token);
+    setUser(logData.user);
     setIsLoggedIn(true);
   };
 

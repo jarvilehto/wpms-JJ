@@ -9,11 +9,9 @@ import RegisterForm from '../components/RegisterForm';
 
 const Login = () => {
   const {setUser, isLoggedIn, user, setIsLoggedIn} = useContext(MainContext);
-  console.log('login', isLoggedIn);
 
   const checkToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
-    console.log('token', userToken);
     const auth = await useUser().getUserByToken(userToken);
     console.log('auth', auth);
     setUser(auth);

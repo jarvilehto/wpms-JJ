@@ -7,8 +7,10 @@ const MainProvider = ({children}) => {
   // TODO: create state isLoggedIn, set value to false
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
+  const [avatar, setAvatar] = useState('http://placekitten.com/640');
   return (
-    <MainContext.Provider value={{isLoggedIn, setIsLoggedIn, user, setUser}}>
+    <MainContext.Provider value={{isLoggedIn, setIsLoggedIn, user, setUser,
+      avatar, setAvatar}}>
       {children}
     </MainContext.Provider>
   );

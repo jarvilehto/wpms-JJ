@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import {MainContext} from '../context/MainContext';
 
 // TODO: add necessary imports
 const url = 'https://media.mw.metropolia.fi/wbma/';
+// Get posts from backend.
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState({});
 
@@ -26,6 +28,7 @@ const useMedia = () => {
   return {mediaArray};
 };
 
+//Login fuctionality
 const useLogin = () => {
   const postLogin = async (userCredentials) => {
     const options = {
@@ -46,7 +49,9 @@ const useLogin = () => {
   return {postLogin};
 };
 
+//Get user by token.
 const useUser = () => {
+  //User if they have logged in and just minimized app etc.
   const getUserByToken = async (token) => {
     try {
       const options = {
@@ -64,7 +69,8 @@ const useUser = () => {
       throw new Error(error.message);
     }
   };
-
+  
+  //Create a new user.
   const postUser = async (data) => {
     const options = {
       method: 'POST',
@@ -87,4 +93,14 @@ const useUser = () => {
   return {getUserByToken, postUser};
 };
 
-export {useMedia, useUser, useLogin};
+//Get profile picture
+const userTags = async () => {
+  const {avatar, setAvatar, user} = useContext(MainContext);
+  const response = await fetch (url+'tags/avatar_'+user.user_id);
+  const json = await response.json();
+  setAvatar(json[0].filename)
+};
+
+
+
+export {useMedia, useUser, useLogin, userTags};
