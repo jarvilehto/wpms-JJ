@@ -1,10 +1,10 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Keyboard
+  Keyboard,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../context/MainContext';
@@ -12,11 +12,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useLogin, useUser} from '../hooks/ApiHooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
-import {Card, Text} from '@rneui/base';
+import { Card, Text} from '@rneui/base';
 
 const Login = () => {
-  const {setUser, isLoggedIn, user, setIsLoggedIn} = useContext(MainContext);
-
+  const {setUser, isLoggedIn, user, setIsLoggedIn, formToggle, setFormToggle} = useContext(MainContext);
   const checkToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
     const auth = await useUser().getUserByToken(userToken);
@@ -42,12 +41,17 @@ const Login = () => {
           <Text>Random app</Text>
         </View>
         <View style={styles.form}>
-          <Card>
-            <LoginForm />
-          </Card>
-          <Card>
-            <RegisterForm />
-          </Card>
+          {formToggle ? (
+            <Card>
+              <RegisterForm />
+            </Card>
+          ) : (
+            <View>
+            <Card>
+              <LoginForm />
+            </Card>
+            </View>
+          )}
         </View>
       </KeyboardAvoidingView>
     </TouchableOpacity>

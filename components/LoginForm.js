@@ -4,14 +4,11 @@ import {useForm, Controller} from 'react-hook-form';
 import {useLogin, userTags} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../context/MainContext';
-import {
-  Button,
-  Input,
-  Text,
-} from '@rneui/base';
+import {Button, Input, Text} from '@rneui/base';
 
 const LoginForm = () => {
-  const {setUser, isLoggedIn, user, setIsLoggedIn} = useContext(MainContext);
+  const {setUser, isLoggedIn, formToggle, setFormToggle, setIsLoggedIn} =
+    useContext(MainContext);
   const {
     control,
     handleSubmit,
@@ -35,7 +32,9 @@ const LoginForm = () => {
   return (
     <View>
       <View style={{display: 'flex'}}>
-        <Text style={{fontSize: 20, alignSelf: 'center', fontWeight:'600'}}>Login</Text>
+        <Text style={{fontSize: 20, alignSelf: 'center', fontWeight: '600'}}>
+          Login
+        </Text>
         <Controller
           control={control}
           rules={{
@@ -72,6 +71,12 @@ const LoginForm = () => {
       />
 
       <Button title="Sign in!" onPress={handleSubmit(onSubmit)} />
+      <Button
+        title="Register!"
+        style={{marginTop: 15}}
+        onPress={() => setFormToggle(!formToggle)}
+        selectedIndex={formToggle ? 0 : 1}
+      />
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { View,  Alert, StyleSheet} from 'react-native';
+import { TurboModuleRegistry, View} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {useUser} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,7 +11,7 @@ import {
 } from '@rneui/base';
 
 const RegisterForm = () => {
-  const {isLoggedIn, setIsLoggedIn} = useContext(MainContext);
+  const {isLoggedIn, setIsLoggedIn, setFormToggle, formToggle} = useContext(MainContext);
   const {
     control,
     handleSubmit,
@@ -23,6 +23,7 @@ const RegisterForm = () => {
       email: '',
       full_name: '',
     },
+    mode: 'onBlur',
   });
 
   const onSubmit =  async (data) => {
@@ -39,14 +40,20 @@ const RegisterForm = () => {
           control={control}
           rules={{
             required: true,
+            validate: async (value) => {
+              if(!await useUser().checkUsername(value)){
+                return('Username is already taken!')
+              }
+              return true;
+            }
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <Input
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              
               placeholder='Username'
+              errorMessage={errors.username && errors.username.message}
             />
           )}
           name="username"
@@ -109,6 +116,12 @@ const RegisterForm = () => {
         />
         </View>
       <Button title="Register" onPress={handleSubmit(onSubmit)} />
+      <Button
+        title="Log In!"
+        style={{marginTop: 15}}
+        onPress={() => setFormToggle(!formToggle)}
+        selectedIndex={formToggle ? 1 : 0}
+      />
     </View>
   );
 };

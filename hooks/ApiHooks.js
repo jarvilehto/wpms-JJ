@@ -90,7 +90,21 @@ const useUser = () => {
     }
   };
 
-  return {getUserByToken, postUser};
+  //Check username
+  const checkUsername = async (value) => {
+    try {
+      const response = await fetch(url + 'users/username/'+value);
+      const json = await response.json();
+      if(response.ok){
+        return json.available;
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+
+  return {getUserByToken, postUser, checkUsername};
 };
 
 //Get profile picture
