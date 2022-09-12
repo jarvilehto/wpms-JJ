@@ -1,13 +1,15 @@
-import React, {useContext, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Alert, ScrollView, StyleSheet, View} from 'react-native';
 import {Controller, useForm} from 'react-hook-form';
 import {Button, Card, Input, Text} from '@rneui/base';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useMedia} from '../hooks/ApiHooks';
+import {postTag, useMedia} from '../hooks/ApiHooks';
 import {MainContext} from '../context/MainContext';
 import {useNavigation} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
+import {tag} from '../vars/variables';
 
 const Upload = () => {
   const [image, setImage] = useState(
@@ -15,12 +17,13 @@ const Upload = () => {
   );
   const [type, setType] = useState('');
   const [imageSelected, setImageSelected] = useState(false);
-  const {postMedia} = useMedia();
+  const {postMedia, loading} = useMedia();
   const {update, setUpdate} = useContext(MainContext);
   const navigation = useNavigation();
   const {
     control,
     handleSubmit,
+    setValue,
     formState: {errors},
   } = useForm({
     defaultValues: {
@@ -28,6 +31,12 @@ const Upload = () => {
       description: '',
     },
   });
+  //: Insane tech
+  useFocusEffect(
+    useCallback(()=>{
+      return () => reset();
+    },[])
+  );
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -40,6 +49,13 @@ const Upload = () => {
       setImageSelected(true);
       setType(result.type);
     }
+  };
+
+  const reset = () => {
+    setImage('https://place-hold.it/300x200&text=Choose');
+    setImageSelected(false);
+    setValue('title', '');
+    setValue('description', '');
   };
 
   const onSubmit = async (data) => {
@@ -61,6 +77,16 @@ const Upload = () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       const response = await postMedia(formData, token);
+      console.log(response)
+      console.log(tag)
+      await postTag(
+        {
+          file_id: response.file_id,
+          tag: tag,
+        },
+        token
+      );
+
       Alert.alert('File', 'uploaded', [
         {
           text: 'Ok',
@@ -83,10 +109,12 @@ const Upload = () => {
           style={styles.image}
           onPress={pickImage}
         ></Card.Image>
+        <Button title="Choose image" onPress={pickImage} />
         <Controller
           control={control}
           rules={{
             required: true,
+            minLength: 4,
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <Input
@@ -95,15 +123,16 @@ const Upload = () => {
               value={value}
               autoCapitalize="none"
               placeholder="Title"
+              errorMessage={errors.title && 'Field is required'}
             />
           )}
           name="title"
         />
-        {errors.title && <Text>This is required.</Text>}
         <Controller
           control={control}
           rules={{
             required: true,
+            minLength: 1,
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <Input
@@ -112,14 +141,20 @@ const Upload = () => {
               value={value}
               autoCapitalize="none"
               placeholder="Description"
+              errorMessage={errors.description && 'Field is required'}
             />
           )}
           name="description"
         />
-        {errors.description && <Text>This is required.</Text>}
-
-        <Button title="Choose image" onPress={pickImage} />
-        <Button title="Upload" onPress={handleSubmit(onSubmit)} />
+        <Button
+          title="Reset"
+          onPress={reset}
+        />
+        <Button
+          disabled={!imageSelected}
+          title="Upload"
+          onPress={handleSubmit(onSubmit)}
+        />
       </Card>
     </ScrollView>
   );
