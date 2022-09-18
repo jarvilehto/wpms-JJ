@@ -31,6 +31,8 @@ const ListItem = ({singleMedia, navigation}) => {
           filename: singleMedia.thumbnails.w160,
           title: singleMedia.title,
           description: singleMedia.description,
+          filetype: singleMedia.media_type,
+          orig_filename: singleMedia.filename,
         });
       }}
       ></Button>
