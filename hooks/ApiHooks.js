@@ -125,13 +125,23 @@ const useUser = () => {
     return response;
   };
 
+  //get user by ID 
+  const getUserByID = async (token, id) => {
+    const options = {
+      method: 'GET',
+      headers: {'x-access-token': token},
+    };
+    const response = await doFetch(url + `users/${id}`, options);
+    return response;
+  };
+
   //Check username
   const checkUsername = async (value) => {
     const response = doFetch(url + 'users/username/' + value);
     return response.available;
   };
 
-  return {getUserByToken, postUser, checkUsername};
+  return {getUserByToken, postUser, checkUsername, getUserByID};
 };
 
 //Get profile picture

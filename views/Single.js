@@ -1,14 +1,32 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, SafeAreaView, Text, View, Image} from 'react-native';
 import {Card} from '@rneui/base';
 import {Video, AVPlaybackStatus} from 'expo-av';
+import {useUser} from '../hooks/ApiHooks'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 const Single = ({route}) => {
-  const {filename, title, description, filetype, orig_filename} = route.params;
-  console.log(filetype);
-  console.log(filename);
+  const {filename, title, description, filetype, orig_filename, user_id} = route.params;
   const video = React.useRef(null);
   const [status, setStatus] = useState({});
+  const [poster, setPoster] = useState({username: 'Loading...'})
+
+  const getPostInfo = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      const posterData = await useUser().getUserByID(token, user_id);
+      setPoster(posterData);
+      
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(()=>{
+    getPostInfo();
+  }, [])
 
   if (filetype == 'image') {
     return (
@@ -28,6 +46,7 @@ const Single = ({route}) => {
           >
             <Card.Title>{title}</Card.Title>
             <Text>{description}</Text>
+            <Text>Post created by: {poster.username}</Text>
           </View>
         </Card>
       </View>
@@ -57,6 +76,7 @@ const Single = ({route}) => {
           >
             <Card.Title>{title}</Card.Title>
             <Text>{description}</Text>
+            <Text>Post created by: {poster.username}</Text>
           </View>
         </Card>
       </View>

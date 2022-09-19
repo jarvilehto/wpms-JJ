@@ -33,6 +33,7 @@ const ListItem = ({singleMedia, navigation}) => {
           description: singleMedia.description,
           filetype: singleMedia.media_type,
           orig_filename: singleMedia.filename,
+          user_id: singleMedia.user_id,
         });
       }}
       ></Button>
