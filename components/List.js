@@ -5,8 +5,8 @@ import ListItem from './ListItem';
 import {useMedia} from '../hooks/ApiHooks';
 import {MainContext} from '../context/MainContext';
 
-const List = ({navigation}) => {
-  const {mediaArray} = useMedia();
+const List = ({navigation, myFilesOnly = false}) => {
+  const {mediaArray} = useMedia(myFilesOnly);
   return (
     <>
       <FlatList

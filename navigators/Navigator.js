@@ -8,6 +8,7 @@ import Single from '../views/Single';
 import Login from '../views/Login';
 import {MainContext} from '../context/MainContext';
 import Upload from '../views/Upload';
+import MyFiles from '../views/MyFiles';
 
 const HomeScreen = (props) => {
   return <Home navigate={props}></Home>;
@@ -41,6 +42,7 @@ const StackScreen = () => {
           component={TabScreen}
           options={{headerShown: false}}
         />
+        <Stack.Screen name="My Files" component={MyFiles}/>
         <Stack.Screen name="Single" component={Single} />
       </Stack.Navigator>
     );

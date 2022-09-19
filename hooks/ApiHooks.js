@@ -22,33 +22,26 @@ const doFetch = async (url, options = {}) => {
 
 // TODO: add necessary imports
 // Get posts from backend.
-const useMedia = (start = 0, limit = 20) => {
+const useMedia = (myFilesOnly) => {
   const [mediaArray, setMediaArray] = useState({});
   const [loading, setLoading] = useState(false);
-  const {update} = useContext(MainContext);
+  const {update, user} = useContext(MainContext);
   useEffect(() => {
     const loadMedia = async (start = 0, limit = 15) => {
       setLoading(true);
-      /*
-      const response = await fetch(url + `media?start=${start}&limit=${limit}`);
-      const json = await response.json();
-      Promise.all(
-        json.map(async (res) => {
-          const response = await fetch(url + `media/${res.file_id}`);
+      let resTagFiles = await taggedFiles(tag);
+      if (myFilesOnly) {
+        resTagFiles = resTagFiles.filter(
+          (file) => file.user_id === user.user_id
+        );
+      }
+      await Promise.all(
+        resTagFiles.map(async (item) => {
+          const response = await fetch(url + `media/${item.file_id}`);
           const qJson = await response.json();
           return qJson;
         })
       ).then((values) => {
-        setMediaArray(values);
-        setLoading(false);
-      });
-      */
-      const resTagFiles = await taggedFiles(tag);
-      const files = await Promise.all(resTagFiles.map  (async (item)=>{
-        const response = await fetch(url + `media/${item.file_id}`);
-          const qJson = await response.json();
-          return qJson;
-      })).then((values) => {
         setMediaArray(values);
         setLoading(false);
       });
@@ -125,7 +118,7 @@ const useUser = () => {
     return response;
   };
 
-  //get user by ID 
+  //get user by ID
   const getUserByID = async (token, id) => {
     const options = {
       method: 'GET',

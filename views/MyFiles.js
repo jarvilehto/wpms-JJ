@@ -1,18 +1,16 @@
 import React, {useContext} from 'react';
-import {FlatList, Text, View} from 'react-native';
-import ListItem from './ListItem';
-import {useMedia} from '../hooks/ApiHooks';
-import {MainContext} from '../context/MainContext';
 import List from '../components/List';
-import {checkPropTypes} from 'prop-types';
+import {PropTypes} from 'prop-types';
+import {View} from 'react-native';
 
 const MyFiles = ({navigation}) => {
-    return <List navigation={navigation}
-    myfilesOnly="true" />
+    return(
+    <List navigation={navigation} myFilesOnly="true"></List>
+    );
 };
 
 MyFiles.protoTypes = {
-    navigation: checkPropTypes.object,
+    navigation: PropTypes.object,
 }
 
 export default MyFiles;

@@ -4,19 +4,18 @@ import {MainContext} from '../context/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {userTags} from '../hooks/ApiHooks';
 import {Card, Text, Button, ListItem, Avatar} from '@rneui/base';
+import {useNavigation} from '@react-navigation/native';
 
 // not using props for navigation. Hooks are better. Period.
 const Profile = () => {
+  const navigation = useNavigation();
   userTags();
   const {avatar, setAvatar, setUser, isLoggedIn, user, setIsLoggedIn} =
     useContext(MainContext);
-  console.log('Profile', isLoggedIn);
-  console.log('user', user);
   const logout = async () => {
-    setIsLoggedIn(false);
     await AsyncStorage.clear();
+    setIsLoggedIn(false);
   };
-
   return (
     <Card>
       <Card.Title>
@@ -37,7 +36,8 @@ const Profile = () => {
         <Avatar icon={{name: 'user', type: 'font-awesome', color: 'black'}} />
         <Text>{user.full_name}</Text>
       </ListItem>
-      <Button title={'Logout'} onPress={logout} />
+      <Button title={'My files'} onPress={()=> navigation.navigate('My Files')}></Button>
+      <Button title={'Logout'} onPress={()=>logout} />
     </Card>
   );
 };
