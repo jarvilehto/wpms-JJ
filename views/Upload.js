@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {postTag, useMedia} from '../hooks/ApiHooks';
 import {MainContext} from '../context/MainContext';
 import {useNavigation} from '@react-navigation/native';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 import {tag} from '../vars/variables';
 
 const Upload = () => {
@@ -33,9 +33,9 @@ const Upload = () => {
   });
   //: Insane tech
   useFocusEffect(
-    useCallback(()=>{
+    useCallback(() => {
       return () => reset();
-    },[])
+    }, [])
   );
 
   const pickImage = async () => {
@@ -77,8 +77,8 @@ const Upload = () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       const response = await postMedia(formData, token);
-      console.log(response)
-      console.log(tag)
+      console.log(response);
+      console.log(tag);
       await postTag(
         {
           file_id: response.file_id,
@@ -146,10 +146,7 @@ const Upload = () => {
           )}
           name="description"
         />
-        <Button
-          title="Reset"
-          onPress={reset}
-        />
+        <Button title="Reset" onPress={reset} />
         <Button
           disabled={!imageSelected}
           title="Upload"

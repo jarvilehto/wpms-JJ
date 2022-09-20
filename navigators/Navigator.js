@@ -9,6 +9,7 @@ import Login from '../views/Login';
 import {MainContext} from '../context/MainContext';
 import Upload from '../views/Upload';
 import MyFiles from '../views/MyFiles';
+import Modify from '../views/Modify'
 
 const HomeScreen = (props) => {
   return <Home navigate={props}></Home>;
@@ -44,6 +45,7 @@ const StackScreen = () => {
         />
         <Stack.Screen name="My Files" component={MyFiles}/>
         <Stack.Screen name="Single" component={Single} />
+        <Stack.Screen name="Modify" component={Modify} />
       </Stack.Navigator>
     );
   } else {

@@ -74,7 +74,27 @@ const useMedia = (myFilesOnly) => {
     }
   };
 
-  return {mediaArray, postMedia, loading};
+  const deleteMedia = async (id, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {'x-access-token': token}
+    }
+    return await doFetch(url+`media/${id}`, options);
+  };
+
+  const putMedia = async (data, token, id) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(data),
+    };
+    return await doFetch (url +`media/${id}`, options)
+  }
+
+  return {mediaArray, postMedia, loading, putMedia, deleteMedia};
 };
 
 //Login fuctionality
